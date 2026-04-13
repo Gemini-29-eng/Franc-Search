@@ -1,261 +1,131 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Franc</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Franc</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1220;
-      color: white;
-    }
+<style>
+/* ===== BASE ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #0f172a, #050814);
+  color: white;
+  overflow: hidden;
+}
 
-    /* HOME */
-    .home {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+/* ===== HOME ===== */
+.home {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-    .logo {
-      font-size: 80px;
-      margin: 0;
-      letter-spacing: 2px;
-    }
+/* LOGO */
+.logo {
+  font-size: 90px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 3s infinite alternate;
+}
 
-    .subtitle {
-      color: #94a3b8;
-      margin-bottom: 20px;
-    }
+@keyframes glow {
+  from { filter: drop-shadow(0 0 10px #3b82f6); }
+  to { filter: drop-shadow(0 0 25px #22c55e); }
+}
 
-    .hint {
-      color: #64748b;
-      margin-top: 15px;
-      font-size: 13px;
-    }
+/* SUBTITLE */
+.subtitle {
+  color: #94a3b8;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
 
-    .search-box {
-      display: flex;
-      gap: 10px;
-    }
+/* SEARCH BOX */
+.search-box {
+  display: flex;
+  gap: 10px;
+  background: rgba(255,255,255,0.05);
+  padding: 10px;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
 
-    .search-box input {
-      width: 360px;
-      padding: 14px;
-      border-radius: 30px;
-      border: none;
-      outline: none;
-      font-size: 15px;
-    }
+/* INPUT */
+.search-box input {
+  width: 380px;
+  padding: 12px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+}
 
-    .search-box button {
-      padding: 14px 20px;
-      border-radius: 30px;
-      border: none;
-      background: #3b82f6;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+/* BUTTON */
+.search-box button {
+  padding: 12px 20px;
+  border-radius: 40px;
+  border: none;
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    .search-box button:hover {
-      background: #2563eb;
-      transform: scale(1.05);
-    }
+.search-box button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
 
-    /* RESULTS */
-    .results {
-      display: none;
-      padding: 40px;
-      max-width: 900px;
-      margin: auto;
-    }
+/* FLOATING SHAPES */
+.circle {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: rgba(59,130,246,0.2);
+  border-radius: 50%;
+  filter: blur(50px);
+  top: 10%;
+  left: 15%;
+}
 
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .backBtn {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 10px;
-      background: #334155;
-      color: white;
-      cursor: pointer;
-    }
-
-    .backBtn:hover {
-      background: #475569;
-    }
-
-    .query {
-      color: #94a3b8;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      background: #1e293b;
-      padding: 15px;
-      margin-top: 10px;
-      border-radius: 12px;
-      transition: 0.2s;
-    }
-
-    .card:hover {
-      transform: translateX(5px);
-    }
-
-    .card a {
-      color: #60a5fa;
-      text-decoration: none;
-      font-size: 18px;
-    }
-
-    .card p {
-      color: #cbd5e1;
-      font-size: 14px;
-    }
-
-    /* LOG SYSTEM */
-    .log {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      background: #111827;
-      padding: 10px;
-      font-size: 12px;
-      border-radius: 8px;
-      color: #94a3b8;
-      max-width: 300px;
-      display: none;
-    }
-  </style>
+.circle2 {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: rgba(34,197,94,0.2);
+  border-radius: 50%;
+  filter: blur(60px);
+  bottom: 10%;
+  right: 10%;
+}
+</style>
 </head>
 
 <body>
 
-<!-- HOME -->
-<div class="home" id="home">
+<div class="circle"></div>
+<div class="circle2"></div>
+
+<div class="home">
 
   <h1 class="logo">Franc</h1>
-  <p class="subtitle">Moteur de recherche de Franc Suisse</p>
+  <p class="subtitle">Le moteur de recherche de Franc Suisse</p>
 
   <div class="search-box">
-    <input id="searchInput" type="text" placeholder="Rechercher sur Franc..." onkeypress="handleKey(event)">
-    <button onclick="search()">Rechercher</button>
+    <input type="text" placeholder="Rechercher sur Franc...">
+    <button>Rechercher</button>
   </div>
 
-  <p class="hint">Appuie sur Entrée pour lancer la recherche</p>
-
 </div>
-
-<!-- RESULTS -->
-<div class="results" id="results">
-
-  <div class="topbar">
-    <h2>Franc Search</h2>
-    <button class="backBtn" onclick="goBack()">Retour</button>
-  </div>
-
-  <div class="query" id="queryText"></div>
-
-  <div id="resultsContainer"></div>
-
-</div>
-
-<!-- LOG -->
-<div class="log" id="logBox"></div>
-
-<script>
-  function log(msg) {
-    const box = document.getElementById("logBox");
-    box.style.display = "block";
-    box.innerText = "[FRANC LOG] " + msg;
-
-    setTimeout(() => {
-      box.style.display = "none";
-    }, 2000);
-  }
-
-  function search() {
-    const query = document.getElementById("searchInput").value;
-
-    if (!query) {
-      log("Recherche vide refusée");
-      return;
-    }
-
-    log("Recherche : " + query);
-    showResults(query);
-  }
-
-  function handleKey(event) {
-    if (event.key === "Enter") {
-      search();
-    }
-  }
-
-  function showResults(query) {
-    document.getElementById("home").style.display = "none";
-    document.getElementById("results").style.display = "block";
-
-    document.getElementById("queryText").innerText =
-      "Résultats pour : " + query;
-
-    const container = document.getElementById("resultsContainer");
-    container.innerHTML = "";
-
-    log("Génération des résultats...");
-
-    const fakeResults = [
-      {
-        title: "Franc - " + query,
-        link: "#",
-        desc: "Résultat généré par le moteur Franc (prototype)."
-      },
-      {
-        title: "Résultat web sur " + query,
-        link: "#",
-        desc: "Simulation d’un résultat internet."
-      },
-      {
-        title: "Analyse de " + query,
-        link: "#",
-        desc: "Résultat structuré du système Franc."
-      }
-    ];
-
-    fakeResults.forEach((r, i) => {
-      const div = document.createElement("div");
-      div.className = "card";
-
-      div.innerHTML = `
-        <a href="${r.link}">${r.title}</a>
-        <p>${r.desc}</p>
-      `;
-
-      container.appendChild(div);
-
-      log("Résultat " + (i + 1) + " chargé");
-    });
-
-    log("Recherche terminée");
-  }
-
-  function goBack() {
-    log("Retour à l'accueil");
-    document.getElementById("results").style.display = "none";
-    document.getElementById("home").style.display = "flex";
-  }
-</script>
 
 </body>
 </html>
