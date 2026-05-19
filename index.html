@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Franc - Moteur de Recherche</title>
+    <title>Franc - Moteur de Recherche & Actu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -17,8 +17,9 @@
             --text-muted: #64748b;
             --primary: #3b82f6;
             --primary-hover: #2563eb;
+            --primary-light: #eff6ff;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s ease;
+            --transition: cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
         }
 
         * {
@@ -38,9 +39,44 @@
             overflow-x: hidden;
         }
 
+        /* Barre supérieure / Bouton Se Connecter */
+        .top-bar {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 40px;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .login-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+            transition: var(--transition);
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .login-btn:hover i {
+            animation: pulse 0.5s infinite alternate;
+        }
+
         /* En-tête / Logo */
         header {
-            margin-top: 8vh;
+            margin-top: 2vh;
             text-align: center;
             animation: fadeInDown 0.8s ease;
         }
@@ -56,10 +92,7 @@
             gap: 10px;
         }
 
-        .logo span {
-            color: var(--primary);
-        }
-
+        .logo span { color: var(--primary); }
         .logo i {
             font-size: 2.5rem;
             color: var(--primary);
@@ -76,9 +109,10 @@
         .search-container {
             width: 90%;
             max-width: 650px;
-            margin-top: 40px;
+            margin-top: 35px;
             position: relative;
             animation: scaleUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
         }
 
         .search-wrapper {
@@ -127,21 +161,11 @@
             transform: scale(1.05);
         }
 
-        .search-btn i {
-            font-size: 1.2rem;
-        }
-
-        /* Icône animée au survol du bouton de recherche */
-        .search-btn:hover i {
-            animation: pulse 0.5s infinite alternate;
-        }
-
-        /* Zone de résultats / Articles */
+        /* Zone de résultats (Moteur de recherche) */
         .results-container {
             width: 90%;
             max-width: 750px;
-            margin-top: 50px;
-            margin-bottom: 50px;
+            margin-top: 30px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -152,109 +176,237 @@
             text-align: center;
             font-size: 2rem;
             color: var(--primary);
-            margin-top: 30px;
+            margin-top: 20px;
+        }
+        .loader i { animation: spin 1s linear infinite; }
+
+        /* Section Actualités (Actu) */
+        .news-section {
+            width: 90%;
+            max-width: 950px;
+            margin: 60px 0;
+            animation: fadeInUp 0.8s ease;
         }
 
-        .loader i {
-            animation: spin 1s linear infinite;
+        .news-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
+        .news-section h2 i {
+            color: #ef4444;
+            animation: pulse 1s infinite alternate;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .news-img-wrapper {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .news-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .news-card:hover .news-img {
+            transform: scale(1.06);
+        }
+
+        .news-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .news-source {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .news-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .news-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Fenêtre Modale (Article complet) */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            border-radius: 24px;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+            background: #ef4444;
+            color: white;
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-body h3 {
+            font-size: 1.6rem;
+            margin: 10px 0 15px 0;
+            line-height: 1.3;
+        }
+
+        .modal-body p {
+            color: #334155;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Search Results Style (From previous built) */
         .article-card {
             background: var(--card-bg);
             padding: 25px;
             border-radius: 16px;
             box-shadow: var(--shadow);
             border-left: 5px solid transparent;
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideIn 0.5s forwards ease;
+            animation: slideIn 0.4s forwards ease;
         }
-
         .article-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             border-left-color: var(--primary);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-        }
-
-        .article-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .article-title a {
-            color: var(--text-main);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .article-title a:hover {
-            color: var(--primary);
-        }
-
-        .article-snippet {
-            color: var(--text-muted);
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        .article-footer {
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .article-footer i {
-            transition: transform 0.3s ease;
-        }
-
-        .article-card:hover .article-footer i {
-            transform: translateX(5px);
         }
 
         /* Animations Keyframes */
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
+            from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         @keyframes scaleUp {
-            from { opacity: 0; transform: scale(0.95); }
+            from { opacity: 0; transform: scale(0.96); }
             to { opacity: 1; transform: scale(1); }
         }
-
-        @keyframes slideIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(5deg); }
+            50% { transform: translateY(-6px) rotate(4deg); }
         }
-
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-
+        @keyframes spin { 100% { transform: rotate(360deg); } }
         @keyframes pulse {
             0% { transform: scale(1); }
-            100% { transform: scale(1.15); }
+            100% { transform: scale(1.1); }
         }
-
-        /* Décalage de l'apparition des cartes de résultats */
-        .article-card:nth-child(1) { animation-delay: 0.1s; }
-        .article-card:nth-child(2) { animation-delay: 0.2s; }
-        .article-card:nth-child(3) { animation-delay: 0.3s; }
-        .article-card:nth-child(4) { animation-delay: 0.4s; }
-        .article-card:nth-child(5) { animation-delay: 0.5s; }
     </style>
 </head>
 <body>
+
+    <div class="top-bar">
+        <button class="login-btn" onclick="alert('Connexion en cours...')">
+            <i class="fa-solid fa-user-astronaut"></i> Se connecter
+        </button>
+    </div>
 
     <header>
         <div class="logo">
@@ -278,71 +430,138 @@
         <i class="fa-solid fa-circle-notch"></i>
     </div>
 
-    <main class="results-container" id="results-container">
-        </main>
+    <main class="results-container" id="results-container"></main>
+
+    <section class="news-section" id="news-section">
+        <h2><i class="fa-solid fa-fire-flame-curved"></i> À la une</h2>
+        <div class="news-grid" id="news-grid">
+            </div>
+    </section>
+
+    <div class="modal" id="news-modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal(force=true)"><i class="fa-solid fa-xmark"></i></button>
+            <img src="" alt="Image Article" id="modal-img" class="modal-img">
+            <div class="modal-body">
+                <span class="news-source" id="modal-source"></span>
+                <h3 id="modal-title"></h3>
+                <p id="modal-text"></p>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // Fonction principale de recherche connectée à l'API Wikipédia (idéal pour du contenu textuel/presse en FR)
+        // Banques de données d'actualités fictives
+        const articlesData = [
+            {
+                id: 1,
+                source: "Franc Tech",
+                title: "L'intelligence artificielle franchit un nouveau cap dans le secteur médical",
+                desc: "Des chercheurs ont mis au point un modèle capable de prédire des pathologies complexes avec deux ans d'avance, ouvrant la voie à une médecine ultra-personnalisée.",
+                content: "Des chercheurs ont mis au point un modèle capable de prédire des pathologies complexes avec deux ans d'avance, ouvrant la voie à une médecine ultra-personnalisée. Ce système analyse des millions de données cliniques en tâche de fond pour assister les médecins. Les premiers tests en milieu hospitalier montrent un taux de réussite sans précédent, promettant de transformer les parcours de soins dès l'année prochaine.",
+                img: "https://images.unsplash.com/photo-1530026405186-ed1ea0ac7a63?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 2,
+                source: "Franc Planète",
+                title: "Énergies de demain : la fusion nucléaire commerciale approche à grands pas",
+                desc: "Une start-up européenne annonce une avancée majeure pour stabiliser le plasma à haute température, promettant une énergie propre et quasi-illimitée.",
+                content: "Une start-up européenne annonce une avancée majeure pour stabiliser le plasma à haute température, promettant une énergie propre et quasi-illimitée. En parvenant à maintenir le confinement magnétique pendant une durée record, les ingénieurs posent la première pierre d'un réacteur de production viable. Les investisseurs affluent, qualifiant cet événement de tournant historique du siècle.",
+                img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 3,
+                source: "Franc Culture",
+                title: "Exploration spatiale : de mystérieuses structures découvertes sous la surface de Mars",
+                desc: "Les derniers relevés radar d'un rover ont mis en évidence d'immenses cavités géométriques complexes enfouies sous la glace des pôles martiens.",
+                content: "Les derniers relevés radar d'un rover ont mis en évidence d'immenses cavités géométriques complexes enfouies sous la glace des pôles martiens. Les géologues débattent encore de leur origine : s'agit-il de formations volcaniques uniques ou de vestiges d'un passé hydrologique tumultueux ? Une mission de forage automatisée est déjà en cours d'étude pour percer ce mystère.",
+                img: "https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        // Générer les actus au chargement
+        function loadNews() {
+            const grid = document.getElementById('news-grid');
+            articlesData.forEach(art => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.onclick = () => openModal(art);
+                card.innerHTML = `
+                    <div class="news-img-wrapper">
+                        <img src="${art.img}" alt="Illustration" class="news-img">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-source">${art.source}</span>
+                        <h3 class="news-title">${art.title}</h3>
+                        <p class="news-desc">${art.desc}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Gestion de la Modale (Article complet)
+        function openModal(article) {
+            document.getElementById('modal-img').src = article.img;
+            document.getElementById('modal-source').innerText = article.source;
+            document.getElementById('modal-title').innerText = article.title;
+            document.getElementById('modal-text').innerText = article.content;
+            document.getElementById('news-modal').classList.add('active');
+        }
+
+        function closeModal(event, force = false) {
+            if (force || event.target.id === 'news-modal') {
+                document.getElementById('news-modal').classList.remove('active');
+            }
+        }
+
+        // Fonction Moteur de recherche (Wikipédia)
         async function performSearch(event) {
             event.preventDefault();
-            
             const query = document.getElementById('search-query').value.trim();
             const resultsContainer = document.getElementById('results-container');
             const loader = document.getElementById('loader');
+            const newsSection = document.getElementById('news-section');
 
             if (!query) return;
 
-            // Réinitialisation et affichage du loader
             resultsContainer.innerHTML = '';
             loader.style.display = 'block';
+            newsSection.style.display = 'none'; // Cache l'actu pendant la recherche
 
-            // URL de l'API Wikipédia en français
-            const url = `https://fr.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=5&srsearch=${encodeURIComponent(query)}`;
+            const url = `https://fr.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=4&srsearch=${encodeURIComponent(query)}`;
 
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-                
                 loader.style.display = 'none';
 
                 if (data.query.search.length === 0) {
-                    resultsContainer.innerHTML = `
-                        <div class="article-card" style="text-align:center; border:none;">
-                            <p class="article-snippet">Aucun article trouvé pour "<strong>${query}</strong>". Essayez d'autres mots-clés.</p>
-                        </div>`;
+                    resultsContainer.innerHTML = `<div class="article-card"><p>Aucun résultat pour "${query}".</p></div>`;
                     return;
                 }
 
-                // Génération des cartes d'articles
                 data.query.search.forEach(article => {
                     const articleUrl = `https://fr.wikipedia.org/?curid=${article.pageid}`;
-                    
-                    // Nettoyage des balises HTML renvoyées par l'API dans le snippet
                     const cleanSnippet = article.snippet.replace(/<\/?[^>]+(>|$)/g, "");
-
+                    
                     const card = document.createElement('article');
                     card.className = 'article-card';
+                    card.style.marginBottom = "15px";
                     card.innerHTML = `
-                        <h2 class="article-title">
-                            <a href="${articleUrl}" target="_blank" rel="noopener noreferrer">${article.title}</a>
-                        </h2>
-                        <p class="article-snippet">${cleanSnippet}...</p>
-                        <div class="article-footer">
-                            Lire l'article complet <i class="fa-solid fa-arrow-right-long"></i>
-                        </div>
+                        <h3 class="news-title"><a href="${articleUrl}" target="_blank" style="text-decoration:none; color:var(--text-main);">${article.title}</a></h3>
+                        <p class="news-desc" style="-webkit-line-clamp: unset;">${cleanSnippet}...</p>
                     `;
                     resultsContainer.appendChild(card);
                 });
-
             } catch (error) {
-                console.error("Erreur lors de la récupération des données :", error);
                 loader.style.display = 'none';
-                resultsContainer.innerHTML = `
-                    <div class="article-card" style="text-align:center; border:none; color:#ef4444;">
-                        <p><i class="fa-solid fa-triangle-exclamation"></i> Une erreur est survenue lors de la recherche. Veuillez réessayer.</p>
-                    </div>`;
+                resultsContainer.innerHTML = `<div class="article-card" style="color:red;"><p>Erreur réseau.</p></div>`;
             }
         }
+
+        // Initialisation
+        window.onload = loadNews;
     </script>
 </body>
 </html>
