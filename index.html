@@ -74,11 +74,17 @@
             animation: pulse 0.5s infinite alternate;
         }
 
-        /* En-tête / Logo */
+        /* En-tête / Logo (Interactif pour retour accueil) */
         header {
             margin-top: 2vh;
             text-align: center;
             animation: fadeInDown 0.8s ease;
+        }
+
+        .logo-link {
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
         }
 
         .logo {
@@ -90,6 +96,11 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            transition: var(--transition);
+        }
+
+        .logo-link:hover .logo {
+            transform: scale(1.02);
         }
 
         .logo span { color: var(--primary); }
@@ -161,7 +172,7 @@
             transform: scale(1.05);
         }
 
-        /* Zone de résultats (Moteur de recherche) */
+        /* Zone de résultats */
         .results-container {
             width: 90%;
             max-width: 750px;
@@ -186,6 +197,7 @@
             max-width: 950px;
             margin: 60px 0;
             animation: fadeInUp 0.8s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .news-section h2 {
@@ -228,7 +240,7 @@
             height: 180px;
             overflow: hidden;
             position: relative;
-            background-color: #e2e8f0; /* Fond de secours pendant le chargement */
+            background-color: #e2e8f0;
         }
 
         .news-img {
@@ -276,7 +288,7 @@
             overflow: hidden;
         }
 
-        /* Fenêtre Modale (Article complet) */
+        /* Fenêtres Modales (Commun) */
         .modal {
             position: fixed;
             top: 0;
@@ -341,26 +353,104 @@
             color: white;
         }
 
-        .modal-img {
+        /* Modale Article */
+        .modal-img { width: 100%; height: 300px; object-fit: cover; }
+        .modal-body { padding: 30px; }
+        .modal-body h3 { font-size: 1.6rem; margin: 10px 0 15px 0; line-height: 1.3; }
+        .modal-body p { color: #334155; line-height: 1.7; font-size: 1.05rem; }
+
+        /* Modale Connexion / Inscription */
+        .auth-container {
+            max-width: 450px;
+            padding: 40px 30px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .auth-tab {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding-bottom: 8px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+        }
+
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
             width: 100%;
-            height: 300px;
-            object-fit: cover;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 5px;
         }
 
-        .modal-body {
-            padding: 30px;
+        .auth-form {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            animation: fadeIn 0.4s ease;
         }
 
-        .modal-body h3 {
-            font-size: 1.6rem;
-            margin: 10px 0 15px 0;
-            line-height: 1.3;
+        .auth-form.active { display: flex; }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .modal-body p {
-            color: #334155;
-            line-height: 1.7;
-            font-size: 1.05rem;
+        .input-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .input-group input {
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            outline: none;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+
+        .auth-submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .auth-submit-btn:hover {
+            background: var(--primary-hover);
         }
 
         /* Search Results Style */
@@ -377,42 +467,30 @@
             border-left-color: var(--primary);
         }
 
-        /* Animations Keyframes */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes scaleUp {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-6px) rotate(4deg); }
-        }
+        /* Keyframes */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleUp { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-6px) rotate(4deg); } }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
+        @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <button class="login-btn" onclick="alert('Connexion en cours...')">
+        <button class="login-btn" onclick="openAuthModal()">
             <i class="fa-solid fa-user-astronaut"></i> Se connecter
         </button>
     </div>
 
     <header>
-        <div class="logo">
-            <i class="fa-solid fa-compass"></i> Franc<span>.</span>
-        </div>
+        <a class="logo-link" onclick="goHome()">
+            <div class="logo">
+                <i class="fa-solid fa-compass"></i> Franc<span>.</span>
+            </div>
+        </a>
         <p class="tagline">L'information claire, rapide et essentielle.</p>
     </header>
 
@@ -439,9 +517,9 @@
             </div>
     </section>
 
-    <div class="modal" id="news-modal" onclick="closeModal(event)">
+    <div class="modal" id="news-modal" onclick="closeModal(event, 'news-modal')">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal(event, true)"><i class="fa-solid fa-xmark"></i></button>
+            <button class="modal-close" onclick="closeModal(event, 'news-modal', true)"><i class="fa-solid fa-xmark"></i></button>
             <img src="" alt="Image Article" id="modal-img" class="modal-img">
             <div class="modal-body">
                 <span class="news-source" id="modal-source"></span>
@@ -451,8 +529,46 @@
         </div>
     </div>
 
+    <div class="modal" id="auth-modal" onclick="closeModal(event, 'auth-modal')">
+        <div class="modal-content auth-container">
+            <button class="modal-close" onclick="closeModal(event, 'auth-modal', true)"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Connexion</button>
+                <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Créer un compte</button>
+            </div>
+
+            <form id="form-login" class="auth-form active" onsubmit="handleAuthSubmit(event, 'connexion')">
+                <div class="input-group">
+                    <label for="login-email">Adresse e-mail</label>
+                    <input type="email" id="login-email" required placeholder="exemple@franc.fr">
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Mot de passe</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="auth-submit-btn">Se connecter</button>
+            </form>
+
+            <form id="form-register" class="auth-form" onsubmit="handleAuthSubmit(event, 'inscription')">
+                <div class="input-group">
+                    <label for="reg-name">Nom complet</label>
+                    <input type="text" id="reg-name" required placeholder="Jean Dupont">
+                </div>
+                <div class="input-group">
+                    <label for="reg-email">Adresse e-mail</label>
+                    <input type="email" id="reg-email" required placeholder="exemple@franc.fr">
+                </div>
+                <div class="input-group">
+                    <label for="reg-password">Mot de passe</label>
+                    <input type="password" id="reg-password" required placeholder="Minimum 8 caractères">
+                </div>
+                <button type="submit" class="auth-submit-btn">Créer mon compte</button>
+            </form>
+        </div>
+    </div>
+
     <script>
-        // Source d'images alternatives ultra-stables (Lorem Picsum)
         const articlesData = [
             {
                 id: 1,
@@ -480,13 +596,14 @@
             }
         ];
 
-        // Générer les actus au chargement
+        // Charger les actus au démarrage
         function loadNews() {
             const grid = document.getElementById('news-grid');
+            grid.innerHTML = '';
             articlesData.forEach(art => {
                 const card = document.createElement('div');
                 card.className = 'news-card';
-                card.onclick = () => openModal(art);
+                card.onclick = () => openNewsModal(art);
                 card.innerHTML = `
                     <div class="news-img-wrapper">
                         <img src="${art.img}" alt="Illustration" class="news-img">
@@ -501,8 +618,19 @@
             });
         }
 
-        // Gestion de la Modale (Article complet)
-        function openModal(article) {
+        // Action de retour à l'accueil via le logo
+        function goHome() {
+            document.getElementById('search-query').value = ''; // Vide la recherche
+            document.getElementById('results-container').innerHTML = ''; // Nettoie les résultats
+            
+            const newsSection = document.getElementById('news-section');
+            newsSection.style.display = 'block'; // Réaffiche l'actu
+            newsSection.style.animation = 'none';
+            setTimeout(() => { newsSection.style.animation = 'fadeInUp 0.6s ease'; }, 5);
+        }
+
+        // Gestion de la Modale Article
+        function openNewsModal(article) {
             document.getElementById('modal-img').src = article.img;
             document.getElementById('modal-source').innerText = article.source;
             document.getElementById('modal-title').innerText = article.title;
@@ -510,14 +638,44 @@
             document.getElementById('news-modal').classList.add('active');
         }
 
-        // Correction ici : la fonction gère correctement le bouton croix ainsi que le clic à côté
-        function closeModal(event, force = false) {
-            if (force || event.target.id === 'news-modal') {
-                document.getElementById('news-modal').classList.remove('active');
+        // Gestion de la Modale Authentification
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.add('active');
+        }
+
+        function switchAuthTab(type) {
+            const tabLogin = document.getElementById('tab-login');
+            const tabRegister = document.getElementById('tab-register');
+            const formLogin = document.getElementById('form-login');
+            const formRegister = document.getElementById('form-register');
+
+            if (type === 'login') {
+                tabLogin.classList.add('active');
+                tabRegister.classList.remove('active');
+                formLogin.classList.add('active');
+                formRegister.classList.remove('active');
+            } else {
+                tabRegister.classList.add('active');
+                tabLogin.classList.remove('active');
+                formRegister.classList.add('active');
+                formLogin.classList.remove('active');
             }
         }
 
-        // Fonction Moteur de recherche (Wikipédia)
+        // Fermeture générique des modales
+        function closeModal(event, modalId, force = false) {
+            if (force || event.target.id === modalId) {
+                document.getElementById(modalId).classList.remove('active');
+            }
+        }
+
+        function handleAuthSubmit(event, type) {
+            event.preventDefault();
+            alert(`Félicitations ! Action d'${type} réussie avec succès.`);
+            closeModal(event, 'auth-modal', true);
+        }
+
+        // Moteur de recherche (Wikipédia)
         async function performSearch(event) {
             event.preventDefault();
             const query = document.getElementById('search-query').value.trim();
@@ -558,11 +716,10 @@
                 });
             } catch (error) {
                 loader.style.display = 'none';
-                resultsContainer.innerHTML = `<div class="article-card" style="color:red;"><p>Erreur réseau.</p></div>`;
+                resultsContainer.innerHTML = `<div class="article-card" style="color:red;"><p>Erreur de connexion au serveur de recherche.</p></div>`;
             }
         }
 
-        // Initialisation
         window.onload = loadNews;
     </script>
 </body>
