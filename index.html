@@ -162,7 +162,7 @@
 
         .search-btn:hover { background: var(--primary-hover); transform: scale(1.05); }
 
-        /* NOUVEAU : Aperçu Intelligent de Recherche (Knowledge Overview) */
+        /* Aperçu Intelligent de Recherche (Knowledge Overview) */
         .smart-preview {
             display: none;
             background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
@@ -414,7 +414,7 @@
                 </div>
             </div>
             <a href="#" target="_blank" rel="noopener noreferrer" class="preview-link-btn" id="preview-link">
-                Visiter le site <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                En savoir plus <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </a>
         </div>
     </div>
@@ -464,44 +464,57 @@
     </div>
 
     <script>
-        // Base de connaissances pour l'aperçu intelligent
-        const smartKnowledgeBase = {
-            "franc": {
+        // Base de connaissances intelligente étendue (Moteurs, Marques, Personnalités, Lieux)
+        const smartKnowledgeBase = [
+            {
+                keys: ["franc", "franque", "fran"],
                 tag: "Moteur de recherche",
                 title: "Franc.",
-                desc: "Moteur de recherche familial, protecteur de votre vie privée, fluide et centré sur l'essentiel.",
+                desc: "Moteur de recherche familial, rapide et conçu pour aller droit à l'essentiel tout en respectant votre navigation.",
                 icon: "fa-compass",
                 url: "#"
             },
-            "google": {
+            {
+                keys: ["google", "googl", "gogle"],
                 tag: "Technologie",
                 title: "Google",
-                desc: "Moteur de recherche américain mondialement connu et leader de l'indexation de données web.",
+                desc: "Entreprise technologique américaine leader mondial de la recherche en ligne, des cartes de navigation et de l'IA.",
                 icon: "fa-brands fa-google",
                 url: "https://www.google.com"
             },
-            "wikipedia": {
-                tag: "Encyclopédie",
-                title: "Wikipédia",
-                desc: "Projet d'encyclopédie collective en ligne, universelle, multilingue et fonctionnant sur le principe du wiki.",
-                icon: "fa-wikipedia-w",
-                url: "https://www.wikipedia.org"
+            {
+                keys: ["elon musk", "musk", "elon"],
+                tag: "Personnalité",
+                title: "Elon Musk",
+                desc: "Entrepreneur et ingénieur, PDG de SpaceX, de Tesla, et figure majeure de l'innovation spatiale et technologique.",
+                icon: "fa-user-tie",
+                url: "https://fr.wikipedia.org/wiki/Elon_Musk"
             },
-            "apple": {
-                tag: "Entreprise Tech",
-                title: "Apple Inc.",
-                desc: "Multinationale américaine qui crée, conçoit et commercialise des produits électroniques grand public (iPhone, Mac).",
-                icon: "fa-brands fa-apple",
-                url: "https://www.apple.com"
+            {
+                keys: ["marie curie", "curie", "marie cri"],
+                tag: "Personnalité / Science",
+                title: "Marie Curie",
+                desc: "Physicienne et chimiste polonaise naturalisée française, double prix Nobel, célèbre pour ses travaux sur la radioactivité.",
+                icon: "fa-user-graduate",
+                url: "https://fr.wikipedia.org/wiki/Marie_Curie"
             },
-            "france": {
-                tag: "Pays",
-                title: "République Française",
-                desc: "État transcontinental souverain d'Europe de l'Ouest, réputé pour sa culture, son histoire et sa gastronomie.",
-                icon: "fa-flag",
-                url: "https://www.service-public.fr"
+            {
+                keys: ["paris", "pari", "paname"],
+                tag: "Lieu / Ville",
+                title: "Paris",
+                desc: "Capitale de la France, pôle mondial de l'art, de la mode, de la gastronomie et de la culture célèbre pour sa Tour Eiffel.",
+                icon: "fa-building-columns",
+                url: "https://www.paris.fr"
+            },
+            {
+                keys: ["tokyo", "tokio", "toky"],
+                tag: "Lieu / Ville",
+                title: "Tokyo",
+                desc: "Capitale ultra-moderne du Japon, mêlant gratte-ciels lumineux, temples anciens et culture pop-art dynamique.",
+                icon: "fa-torii-gate",
+                url: "https://www.gotokyo.org/fr"
             }
-        };
+        ];
 
         const articlesData = [
             { id: 1, source: "Franc Tech", title: "L'intelligence artificielle franchit un nouveau cap dans le secteur médical", desc: "Des chercheurs ont mis au point un modèle capable de prédire des pathologies complexes avec deux ans d'avance, ouvrant la voie à une médecine ultra-personnalisée.", content: "Des chercheurs ont mis au point un modèle capable de prédire des pathologies complexes avec deux ans d'avance, ouvrant la voie à une médecine ultra-personnalisée. Ce système analyse des millions de données cliniques en tâche de fond pour assister les médecins.", img: "https://picsum.photos/id/1014/600/400" },
@@ -535,21 +548,24 @@
             newsSection.style.display = 'block';
         }
 
-        // Détection et affichage de l'aperçu intelligent
+        // Système intelligent avec détection flexible (Marge d'erreur intégrée)
         function checkSmartPreview(query) {
             const previewBox = document.getElementById('smart-preview');
             const cleanQuery = query.toLowerCase().trim();
             
-            if (smartKnowledgeBase[cleanQuery]) {
-                const entity = smartKnowledgeBase[cleanQuery];
-                document.getElementById('preview-tag').innerText = entity.tag;
-                document.getElementById('preview-title').innerText = entity.title;
-                document.getElementById('preview-desc').innerText = entity.desc;
-                document.getElementById('preview-link').href = entity.url;
+            // Recherche si un mot clé contient ou est contenu dans la saisie de l'utilisateur
+            const matchedEntity = smartKnowledgeBase.find(entity => 
+                entity.keys.some(key => cleanQuery.includes(key) || key.includes(cleanQuery)) && cleanQuery.length >= 3
+            );
+            
+            if (matchedEntity) {
+                document.getElementById('preview-tag').innerText = matchedEntity.tag;
+                document.getElementById('preview-title').innerText = matchedEntity.title;
+                document.getElementById('preview-desc').innerText = matchedEntity.desc;
+                document.getElementById('preview-link').href = matchedEntity.url;
                 
-                // Gestion dynamique des classes d'icônes Font Awesome
                 const iconContainer = document.getElementById('preview-icon-container');
-                iconContainer.innerHTML = entity.icon.includes('fa-') ? `<i class="${entity.icon}"></i>` : `<i class="fa-solid fa-${entity.icon}"></i>`;
+                iconContainer.innerHTML = matchedEntity.icon.includes('fa-') ? `<i class="${matchedEntity.icon}"></i>` : `<i class="fa-solid fa-${matchedEntity.icon}"></i>`;
                 
                 previewBox.style.display = 'flex';
             } else {
@@ -570,7 +586,6 @@
             loader.style.display = 'block';
             newsSection.style.display = 'none'; 
 
-            // Déclenche la vérification de l'aperçu intelligent
             checkSmartPreview(query);
 
             const url = `https://fr.wikipedia.org/w/api.php?action=query&list=search&prop=info&inprop=url&utf8=&format=json&origin=*&srlimit=4&srsearch=${encodeURIComponent(query)}`;
