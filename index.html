@@ -220,7 +220,7 @@
 
         /* Section Actualités */
         .news-section {
-            width: 90%; max-width: 950px; margin: 60px 0;
+            width: 90%; max-width: 950px; margin: 60px 0 40px 0;
             animation: fadeInUp 0.8s ease;
         }
 
@@ -247,6 +247,85 @@
         .news-source { font-size: 0.8rem; text-transform: uppercase; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
         .news-title { font-size: 1.05rem; font-weight: 600; line-height: 1.4; margin-bottom: 10px; color: var(--text-main); }
         .news-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+
+        /* NOUVEAUTÉ : Pied de page (Style Qwant) */
+        footer {
+            width: 100%;
+            background: var(--card-bg);
+            border-top: 1px solid #e2e8f0;
+            padding: 25px 40px;
+            margin-top: auto; /* Pousse le footer vers le bas si la page est vide */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-left span strong {
+            color: var(--text-main);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--text-main);
+            transform: scale(1.1);
+        }
+
+        .made-in {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .made-in i {
+            color: #ef4444;
+        }
 
         /* Modales */
         .modal {
@@ -363,6 +442,28 @@
         </div>
     </section>
 
+    <footer>
+        <div class="footer-left">
+            <span id="copyright-year">&copy; 2026 <strong>Franc.</strong> Tous droits réservés.</span>
+            <div class="footer-links">
+                <a href="#">À propos</a>
+                <a href="#">Confidentialité</a>
+                <a href="#">Conditions d'utilisation</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+        <div class="footer-right">
+            <div class="social-links">
+                <a href="#" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" aria-label="Mastodon"><i class="fa-brands fa-mastodon"></i></a>
+                <a href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+            <div class="made-in">
+                Propulsé par Franc <i class="fa-solid fa-heart"></i>
+            </div>
+        </div>
+    </footer>
+
     <div class="modal" id="news-modal" onclick="closeModal(event, 'news-modal')">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal(event, 'news-modal', true)"><i class="fa-solid fa-xmark"></i></button>
@@ -397,7 +498,7 @@
     </div>
 
     <script>
-        // Base de connaissances intelligente (Aperçus)
+        // Base de connaissances intelligente
         const smartKnowledgeBase = [
             { keys: ["franc", "franque", "fran"], tag: "Moteur de recherche", title: "Franc.", desc: "Moteur de recherche familial, rapide et conçu pour aller droit à l'essentiel tout en respectant votre navigation.", icon: "fa-compass", url: "#" },
             { keys: ["google", "googl", "gogle"], tag: "Technologie", title: "Google", desc: "Entreprise technologique américaine leader mondial de la recherche en ligne, des cartes de navigation et de l'IA.", icon: "fa-brands fa-google", url: "https://www.google.com" },
@@ -407,10 +508,9 @@
             { keys: ["tokyo", "tokio", "toky"], tag: "Lieu / Ville", title: "Tokyo", desc: "Capitale ultra-moderne du Japon, mêlant gratte-ciels lumineux, temples anciens et culture pop-art dynamique.", icon: "fa-torii-gate", url: "https://www.gotokyo.org/fr" }
         ];
 
-        // NOUVEAUTÉ : Chargement d'actualités dynamiques et réelles via l'API Wikipédia (Événements récents)
+        // Actualités en direct via Wikipédia
         async function fetchLiveNews() {
             const grid = document.getElementById('news-grid');
-            // On cherche des articles récents liés à des sujets d'actualité/découvertes majeures
             const url = `https://fr.wikipedia.org/w/api.php?action=query&list=search&srsearch=Inventions%20ou%20Découvertes%20récentes%20Science&utf8=&format=json&origin=*&srlimit=3`;
             
             try {
@@ -418,21 +518,17 @@
                 const data = await response.json();
                 
                 if (data.query && data.query.search.length > 0) {
-                    grid.innerHTML = ''; // On vide le message de chargement
-                    
-                    // Thèmes d'images aléatoires et esthétiques pour habiller les cartes d'actualités
+                    grid.innerHTML = '';
                     const imageIds = [1014, 1041, 1021]; 
                     const categories = ["FRANC TECH", "FRANC PLANÈTE", "FRANC SCIENCE"];
 
                     data.query.search.forEach((art, index) => {
                         const cleanSnippet = art.snippet.replace(/<\/?[^>]+(>|$)/g, "");
-                        const articleUrl = `https://fr.wikipedia.org/?curid=${art.pageid}`;
                         const imageUrl = `https://picsum.photos/id/${imageIds[index]}/600/400`;
 
                         const card = document.createElement('div');
                         card.className = 'news-card';
                         
-                        // Création de l'objet d'article structuré pour la modale
                         const articleObj = {
                             source: categories[index],
                             title: art.title,
@@ -455,12 +551,10 @@
                     fallbackNews();
                 }
             } catch (error) {
-                console.error("Erreur lors de la récupération des actus en direct, utilisation du plan B", error);
                 fallbackNews();
             }
         }
 
-        // Plan B : Si l'API échoue ou est hors ligne, on charge les données de secours locales
         function fallbackNews() {
             const grid = document.getElementById('news-grid');
             grid.innerHTML = '';
@@ -489,7 +583,7 @@
             document.getElementById('smart-preview').style.display = 'none';
             const newsSection = document.getElementById('news-section');
             newsSection.style.display = 'block';
-            fetchLiveNews(); // On rafraîchit l'actualité quand on revient à l'accueil !
+            fetchLiveNews();
         }
 
         function checkSmartPreview(query) {
@@ -577,7 +671,9 @@
         function closeModal(event, modalId, force = false) { if (force || event.target.id === modalId) { document.getElementById(modalId).classList.remove('active'); } }
         function handleAuthSubmit(event, type) { event.preventDefault(); alert(`Action d'${type} réussie.`); closeModal(event, 'auth-modal', true); }
 
-        // Lancement initial des actus réelles en direct
+        // Met à jour automatiquement l'année de copyright
+        document.getElementById('copyright-year').innerHTML = `&copy; ${new Date().getFullYear()} <strong>Franc.</strong> Tous droits réservés.`;
+
         window.onload = fetchLiveNews;
     </script>
 </body>
