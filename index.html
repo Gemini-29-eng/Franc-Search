@@ -162,7 +162,7 @@
 
         .search-btn:hover { background: var(--primary-hover); transform: scale(1.05); }
 
-        /* Aperçu Intelligent de Recherche (Knowledge Overview) */
+        /* Aperçu Intelligent de Recherche */
         .smart-preview {
             display: none;
             background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
@@ -181,156 +181,88 @@
             animation: slideIn 0.4s forwards ease;
         }
 
-        .preview-details {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        .preview-details { display: flex; align-items: center; gap: 20px; }
 
         .preview-icon-box {
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: var(--primary);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            width: 60px; height: 60px; background: white; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; color: var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
-
-        .preview-icon-box i {
-            animation: pulse 1.5s infinite alternate;
-        }
+        .preview-icon-box i { animation: pulse 1.5s infinite alternate; }
 
         .preview-tag {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            color: var(--primary);
-            background: var(--primary-light);
-            padding: 4px 10px;
-            border-radius: 50px;
-            display: inline-block;
-            margin-bottom: 5px;
+            font-size: 0.75rem; text-transform: uppercase; font-weight: 700;
+            color: var(--primary); background: var(--primary-light);
+            padding: 4px 10px; border-radius: 50px; display: inline-block; margin-bottom: 5px;
         }
 
-        .preview-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .preview-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
+        .preview-title { font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
+        .preview-desc { font-size: 0.9rem; color: var(--text-muted); margin-top: 2px; }
 
         .preview-link-btn {
-            background: white;
-            color: var(--text-main);
-            text-decoration: none;
-            padding: 10px 18px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px solid #e2e8f0;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            background: white; color: var(--text-main); text-decoration: none;
+            padding: 10px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;
+            border: 1px solid #e2e8f0; white-space: nowrap; display: flex; align-items: center; gap: 8px;
             transition: var(--transition);
         }
-
-        .preview-link-btn:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: translateX(3px);
-        }
+        .preview-link-btn:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateX(3px); }
 
         /* Zone de résultats */
         .results-container {
-            width: 90%;
-            max-width: 750px;
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            width: 90%; max-width: 750px; margin-top: 20px;
+            display: flex; flex-direction: column; gap: 15px;
         }
 
         .loader {
-            display: none;
-            text-align: center;
-            font-size: 2rem;
-            color: var(--primary);
-            margin-top: 20px;
+            display: none; text-align: center; font-size: 2rem; color: var(--primary); margin-top: 20px;
         }
         .loader i { animation: spin 1s linear infinite; }
 
         /* Section Actualités */
         .news-section {
-            width: 90%;
-            max-width: 950px;
-            margin: 60px 0;
+            width: 90%; max-width: 950px; margin: 60px 0;
             animation: fadeInUp 0.8s ease;
         }
 
         .news-section h2 {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.8rem; margin-bottom: 25px;
+            display: flex; align-items: center; gap: 10px;
         }
-
         .news-section h2 i { color: #ef4444; animation: pulse 1s infinite alternate; }
+        
         .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
 
         .news-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
+            background: var(--card-bg); border-radius: 16px; overflow: hidden;
+            box-shadow: var(--shadow); cursor: pointer; transition: var(--transition);
+            display: flex; flex-direction: column; min-height: 380px;
         }
-
         .news-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); }
+        
         .news-img-wrapper { width: 100%; height: 180px; overflow: hidden; background-color: #e2e8f0; }
         .news-img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
         .news-card:hover .news-img { transform: scale(1.06); }
+        
         .news-content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
         .news-source { font-size: 0.8rem; text-transform: uppercase; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
-        .news-title { font-size: 1.1rem; font-weight: 600; line-height: 1.4; margin-bottom: 10px; }
-        .news-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .news-title { font-size: 1.05rem; font-weight: 600; line-height: 1.4; margin-bottom: 10px; color: var(--text-main); }
+        .news-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 
         /* Modales */
         .modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(8px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(8px);
             display: flex; align-items: center; justify-content: center;
-            z-index: 100; opacity: 0; pointer-events: none;
-            transition: opacity 0.4s ease;
+            z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
         }
-
         .modal.active { opacity: 1; pointer-events: auto; }
 
         .modal-content {
             background: var(--card-bg); width: 90%; max-width: 700px; max-height: 85vh;
-            border-radius: 24px; overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            transform: scale(0.9) translateY(20px);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 24px; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9) translateY(20px); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
-
         .modal.active .modal-content { transform: scale(1) translateY(0); }
 
         .modal-close {
@@ -339,12 +271,11 @@
             display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: var(--transition); z-index: 11;
         }
-
         .modal-close:hover { transform: rotate(90deg); background: #ef4444; color: white; }
-        .modal-img { width: 100%; height: 300px; object-fit: cover; }
+        .modal-img { width: 100%; height: 320px; object-fit: cover; background-color: #e2e8f0; }
         .modal-body { padding: 30px; }
-        .modal-body h3 { font-size: 1.6rem; margin: 10px 0 15px 0; }
-        .modal-body p { color: #334155; line-height: 1.7; font-size: 1.05rem; }
+        .modal-body h3 { font-size: 1.5rem; margin: 10px 0 15px 0; line-height: 1.4; }
+        .modal-body p { color: #334155; line-height: 1.7; font-size: 1rem; }
 
         /* Modale Authentification */
         .auth-container { max-width: 450px; padding: 40px 30px; }
@@ -426,8 +357,10 @@
     <main class="results-container" id="results-container"></main>
 
     <section class="news-section" id="news-section">
-        <h2><i class="fa-solid fa-fire-flame-curved"></i> À la une</h2>
-        <div class="news-grid" id="news-grid"></div>
+        <h2><i class="fa-solid fa-fire-flame-curved"></i> À la une sur Franc</h2>
+        <div class="news-grid" id="news-grid">
+            <p style="color: var(--text-muted); grid-column: 1/-1; text-align: center;">Chargement des dernières actualités...</p>
+        </div>
     </section>
 
     <div class="modal" id="news-modal" onclick="closeModal(event, 'news-modal')">
@@ -464,68 +397,78 @@
     </div>
 
     <script>
-        // Base de connaissances intelligente étendue (Moteurs, Marques, Personnalités, Lieux)
+        // Base de connaissances intelligente (Aperçus)
         const smartKnowledgeBase = [
-            {
-                keys: ["franc", "franque", "fran"],
-                tag: "Moteur de recherche",
-                title: "Franc.",
-                desc: "Moteur de recherche familial, rapide et conçu pour aller droit à l'essentiel tout en respectant votre navigation.",
-                icon: "fa-compass",
-                url: "#"
-            },
-            {
-                keys: ["google", "googl", "gogle"],
-                tag: "Technologie",
-                title: "Google",
-                desc: "Entreprise technologique américaine leader mondial de la recherche en ligne, des cartes de navigation et de l'IA.",
-                icon: "fa-brands fa-google",
-                url: "https://www.google.com"
-            },
-            {
-                keys: ["elon musk", "musk", "elon"],
-                tag: "Personnalité",
-                title: "Elon Musk",
-                desc: "Entrepreneur et ingénieur, PDG de SpaceX, de Tesla, et figure majeure de l'innovation spatiale et technologique.",
-                icon: "fa-user-tie",
-                url: "https://fr.wikipedia.org/wiki/Elon_Musk"
-            },
-            {
-                keys: ["marie curie", "curie", "marie cri"],
-                tag: "Personnalité / Science",
-                title: "Marie Curie",
-                desc: "Physicienne et chimiste polonaise naturalisée française, double prix Nobel, célèbre pour ses travaux sur la radioactivité.",
-                icon: "fa-user-graduate",
-                url: "https://fr.wikipedia.org/wiki/Marie_Curie"
-            },
-            {
-                keys: ["paris", "pari", "paname"],
-                tag: "Lieu / Ville",
-                title: "Paris",
-                desc: "Capitale de la France, pôle mondial de l'art, de la mode, de la gastronomie et de la culture célèbre pour sa Tour Eiffel.",
-                icon: "fa-building-columns",
-                url: "https://www.paris.fr"
-            },
-            {
-                keys: ["tokyo", "tokio", "toky"],
-                tag: "Lieu / Ville",
-                title: "Tokyo",
-                desc: "Capitale ultra-moderne du Japon, mêlant gratte-ciels lumineux, temples anciens et culture pop-art dynamique.",
-                icon: "fa-torii-gate",
-                url: "https://www.gotokyo.org/fr"
+            { keys: ["franc", "franque", "fran"], tag: "Moteur de recherche", title: "Franc.", desc: "Moteur de recherche familial, rapide et conçu pour aller droit à l'essentiel tout en respectant votre navigation.", icon: "fa-compass", url: "#" },
+            { keys: ["google", "googl", "gogle"], tag: "Technologie", title: "Google", desc: "Entreprise technologique américaine leader mondial de la recherche en ligne, des cartes de navigation et de l'IA.", icon: "fa-brands fa-google", url: "https://www.google.com" },
+            { keys: ["elon musk", "musk", "elon"], tag: "Personnalité", title: "Elon Musk", desc: "Entrepreneur et ingénieur, PDG de SpaceX, de Tesla, et figure majeure de l'innovation spatiale et technologique.", icon: "fa-user-tie", url: "https://fr.wikipedia.org/wiki/Elon_Musk" },
+            { keys: ["marie curie", "curie", "marie cri"], tag: "Personnalité / Science", title: "Marie Curie", desc: "Physicienne et chimiste polonaise naturalisée française, double prix Nobel, célèbre pour ses travaux sur la radioactivité.", icon: "fa-user-graduate", url: "https://fr.wikipedia.org/wiki/Marie_Curie" },
+            { keys: ["paris", "pari", "paname"], tag: "Lieu / Ville", title: "Paris", desc: "Capitale de la France, pôle mondial de l'art, de la mode, de la gastronomie et de la culture célèbre pour sa Tour Eiffel.", icon: "fa-building-columns", url: "https://www.paris.fr" },
+            { keys: ["tokyo", "tokio", "toky"], tag: "Lieu / Ville", title: "Tokyo", desc: "Capitale ultra-moderne du Japon, mêlant gratte-ciels lumineux, temples anciens et culture pop-art dynamique.", icon: "fa-torii-gate", url: "https://www.gotokyo.org/fr" }
+        ];
+
+        // NOUVEAUTÉ : Chargement d'actualités dynamiques et réelles via l'API Wikipédia (Événements récents)
+        async function fetchLiveNews() {
+            const grid = document.getElementById('news-grid');
+            // On cherche des articles récents liés à des sujets d'actualité/découvertes majeures
+            const url = `https://fr.wikipedia.org/w/api.php?action=query&list=search&srsearch=Inventions%20ou%20Découvertes%20récentes%20Science&utf8=&format=json&origin=*&srlimit=3`;
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                if (data.query && data.query.search.length > 0) {
+                    grid.innerHTML = ''; // On vide le message de chargement
+                    
+                    // Thèmes d'images aléatoires et esthétiques pour habiller les cartes d'actualités
+                    const imageIds = [1014, 1041, 1021]; 
+                    const categories = ["FRANC TECH", "FRANC PLANÈTE", "FRANC SCIENCE"];
+
+                    data.query.search.forEach((art, index) => {
+                        const cleanSnippet = art.snippet.replace(/<\/?[^>]+(>|$)/g, "");
+                        const articleUrl = `https://fr.wikipedia.org/?curid=${art.pageid}`;
+                        const imageUrl = `https://picsum.photos/id/${imageIds[index]}/600/400`;
+
+                        const card = document.createElement('div');
+                        card.className = 'news-card';
+                        
+                        // Création de l'objet d'article structuré pour la modale
+                        const articleObj = {
+                            source: categories[index],
+                            title: art.title,
+                            desc: cleanSnippet + "...",
+                            content: cleanSnippet + " Retrouvez l'intégralité de ce sujet passionnant mis à jour régulièrement par la communauté des experts et chercheurs indépendants.",
+                            img: imageUrl
+                        };
+
+                        card.onclick = () => openNewsModal(articleObj);
+                        card.innerHTML = `
+                            <div class="news-img-wrapper"><img src="${imageUrl}" alt="Illustration" class="news-img"></div>
+                            <div class="news-content">
+                                <span class="news-source">${categories[index]}</span>
+                                <h3 class="news-title">${art.title}</h3>
+                                <p class="news-desc">${cleanSnippet}...</p>
+                            </div>`;
+                        grid.appendChild(card);
+                    });
+                } else {
+                    fallbackNews();
+                }
+            } catch (error) {
+                console.error("Erreur lors de la récupération des actus en direct, utilisation du plan B", error);
+                fallbackNews();
             }
-        ];
+        }
 
-        const articlesData = [
-            { id: 1, source: "Franc Tech", title: "L'intelligence artificielle franchit un nouveau cap dans le secteur médical", desc: "Des chercheurs ont mis au point un modèle capable de prédire des pathologies complexes avec deux ans d'avance, ouvrant la voie à une médecine ultra-personnalisée.", content: "Des chercheurs ont mis au point un modèle capable de prédire des pathologies complexes avec deux ans d'avance, ouvrant la voie à une médecine ultra-personnalisée. Ce système analyse des millions de données cliniques en tâche de fond pour assister les médecins.", img: "https://picsum.photos/id/1014/600/400" },
-            { id: 2, source: "Franc Planète", title: "Énergies de demain : la fusion nucléaire commerciale approche à grands pas", desc: "Une start-up européenne annonce une avancée majeure pour stabiliser le plasma à haute température, promettant une énergie propre et quasi-illimitée.", content: "Une start-up européenne annonce une avancée majeure pour stabiliser le plasma à haute température, promettant une énergie propre et quasi-illimitée. Les ingénieurs posent la première pierre d'un réacteur de production viable.", img: "https://picsum.photos/id/1041/600/400" },
-            { id: 3, source: "Franc Culture", title: "Exploration spatiale : de mystérieuses structures découvertes sous la surface de Mars", desc: "Les derniers relevés radar d'un rover ont mis en évidence d'immenses cavités géométriques complexes enfouies sous la glace des pôles martiens.", content: "Les derniers relevés radar d'un rover ont mis en évidence d'immenses cavités géométriques complexes enfouies sous la glace des pôles martiens. Les géologues débattent encore de leur origine volcanique ou hydrologique.", img: "https://picsum.photos/id/1021/600/400" }
-        ];
-
-        function loadNews() {
+        // Plan B : Si l'API échoue ou est hors ligne, on charge les données de secours locales
+        function fallbackNews() {
             const grid = document.getElementById('news-grid');
             grid.innerHTML = '';
-            articlesData.forEach(art => {
+            const fallbackData = [
+                { source: "Franc Tech", title: "IA & Médecine", desc: "Un nouveau modèle IA détecte les pathologies complexes en avance.", content: "Contenu complet de l'article de secours.", img: "https://picsum.photos/id/1014/600/400" },
+                { source: "Franc Planète", title: "Fusion Nucléaire", desc: "Avancée majeure sur la stabilisation du plasma haute température.", content: "Contenu complet de l'article de secours.", img: "https://picsum.photos/id/1041/600/400" }
+            ];
+            fallbackData.forEach(art => {
                 const card = document.createElement('div');
                 card.className = 'news-card';
                 card.onclick = () => openNewsModal(art);
@@ -546,14 +489,13 @@
             document.getElementById('smart-preview').style.display = 'none';
             const newsSection = document.getElementById('news-section');
             newsSection.style.display = 'block';
+            fetchLiveNews(); // On rafraîchit l'actualité quand on revient à l'accueil !
         }
 
-        // Système intelligent avec détection flexible (Marge d'erreur intégrée)
         function checkSmartPreview(query) {
             const previewBox = document.getElementById('smart-preview');
             const cleanQuery = query.toLowerCase().trim();
             
-            // Recherche si un mot clé contient ou est contenu dans la saisie de l'utilisateur
             const matchedEntity = smartKnowledgeBase.find(entity => 
                 entity.keys.some(key => cleanQuery.includes(key) || key.includes(cleanQuery)) && cleanQuery.length >= 3
             );
@@ -635,7 +577,8 @@
         function closeModal(event, modalId, force = false) { if (force || event.target.id === modalId) { document.getElementById(modalId).classList.remove('active'); } }
         function handleAuthSubmit(event, type) { event.preventDefault(); alert(`Action d'${type} réussie.`); closeModal(event, 'auth-modal', true); }
 
-        window.onload = loadNews;
+        // Lancement initial des actus réelles en direct
+        window.onload = fetchLiveNews;
     </script>
 </body>
 </html>
